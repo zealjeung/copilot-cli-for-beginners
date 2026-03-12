@@ -70,3 +70,29 @@ class BookCollection:
     def find_by_author(self, author: str) -> List[Book]:
         """Find all books by a given author."""
         return [b for b in self.books if b.author.lower() == author.lower()]
+
+    def search(self, title: Optional[str] = None, author: Optional[str] = None,
+               year: Optional[int] = None, read: Optional[bool] = None) -> List[Book]:
+        """Search books with optional filters.
+
+        - title/author: case-insensitive substring match
+        - year: exact match
+        - read: boolean match
+        """
+        results: List[Book] = self.books
+
+        if title is not None:
+            title_lower = title.lower()
+            results = [b for b in results if title_lower in b.title.lower()]
+
+        if author is not None:
+            author_lower = author.lower()
+            results = [b for b in results if author_lower in b.author.lower()]
+
+        if year is not None:
+            results = [b for b in results if getattr(b, 'year', None) == year]
+
+        if read is not None:
+            results = [b for b in results if getattr(b, 'read', False) == read]
+
+        return results

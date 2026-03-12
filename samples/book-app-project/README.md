@@ -30,15 +30,17 @@ It can add, remove, and list books. Also mark them as read.
 ```bash
 python book_app.py list
 python book_app.py add
-python book_app.py find
 python book_app.py remove
+python book_app.py find
+python book_app.py mark-read "The Hobbit"
+python book_app.py search --author "Tolkien" --read true
 python book_app.py help
 ```
 
 ## Running Tests
 
 ```bash
-python -m pytest tests/
+python -m pytest samples/book-app-project
 ```
 
 ---
